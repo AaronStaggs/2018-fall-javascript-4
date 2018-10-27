@@ -6,16 +6,44 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
   <script>
+      var url = "https://jsonplaceholder.typicode.com/todos"
+        function getToDo(){
+            var item = $("#item").val();
+            var todo = $("#todo")
+            var newUrl = url + '/' + item
+            $.getJSON(newUrl, function(data){
+                todo.html("")
+                todo.append('<h3>'+ data.title + '</h3>');
+                todo.append('<h4>'+ data.completed + '</h4>');
+                todo.append('<h5>User ID: '+ data.userId + '</h5>');
+            });
+        }
         $(function(){
-            setTimeout(function(){
-                alert("HOLY CRAP THIS WORKED!!!")
-            },
-            10000
-            );       
+            var todoList = $("#todoList");
+
+            $.getJSON(url, function(data){
+                for(var i = 0; i<data.length; i++){
+                    todoList.append('<li id= "todo' + 
+                    data[i].id + 
+                    '">' +
+                    data[i].title+
+                    "</li>");
+                    if(data[i].completed){
+                        $("#todo" + data[i].id).css('color', 'green')
+                    } else {
+                        $("#todo" + data[i].id).css('color', 'red')
+                    }
+                } 
+            });     
         });
     </script>
     </head>
     <body>
+        <input id = "item" type = "text" placeholder = "Todo Number">
+        <input type = "button" value = "pick" onclick="getToDo()">
+        <div id = "todo"></div>
+        <ol id = "todoList">
+        </ol>
         <ul id = "todoList">  
         </ul>
         
