@@ -35,3 +35,17 @@ var addressBook = [
     age: 32
 }
 ]
+
+function printFirstNames(add){
+    for(var i = 0; i < add.length; i++){
+        console.log(add[i].firstName)
+    }
+}
+printFirstNames(addressBook);
+
+function printAddress(add){
+    for(var i = 0; i < add.length; i++){
+        console.log(add[i].address)
+    }
+}
+printAddress(addressBook);
